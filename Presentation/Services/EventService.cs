@@ -21,6 +21,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
             //{
             //    var imageFileUri = await _fileHandler.UploadFileAsync(form.EventImage);
             //    string eventImagePath = imageFileUri;
+
             //}
 
             EventEntity entity = new EventEntity
