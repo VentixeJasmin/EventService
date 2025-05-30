@@ -69,7 +69,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
 
     public virtual async Task<TEntity> UpdateAsync(Expression<Func<TEntity, bool>> expression, TEntity updatedEntity)
     {
-        //Got some help here from Claude AI with excluding the primary key property from updating. 
+        //Got help here from Claude AI with excluding the primary key property from updating. 
         if (updatedEntity == null)
             return null!;
         try
