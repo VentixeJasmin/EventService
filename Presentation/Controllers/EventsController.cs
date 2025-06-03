@@ -20,10 +20,17 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
     [HttpGet("form-data")]
     public async Task<IActionResult> GetEventFormData()
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
         try
         {
-            EventDto dto = new();
-            dto.CategoryOptions = await PopulateCategoriesAsync();
+            EventDto dto = new()
+            {
+                CategoryOptions = await PopulateCategoriesAsync()
+            };
             return Ok(dto);
         }
         catch (Exception ex) 

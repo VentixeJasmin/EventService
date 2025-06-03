@@ -9,5 +9,5 @@ public interface IEventService
     Task<IEnumerable<EventEntity>> GetAllEvents();
     Task<EventEntity> GetEventById(string id);
     Task<EventEntity> UpdateEvent(string id, EventEntity updatedEvent);
-    Task<bool> DeleteProject(string id);
+    Task<bool> DeleteEvent(string id);
 }

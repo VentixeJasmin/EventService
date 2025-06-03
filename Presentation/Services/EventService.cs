@@ -24,7 +24,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
 
             //}
 
-            EventEntity entity = new EventEntity
+            EventEntity entity = new()
             {
                 Title = form.Title,
                 Date = form.Date,
@@ -56,7 +56,6 @@ public class EventService(IEventRepository eventRepository) : IEventService
             Console.WriteLine(ex.ToString());
             return null!;
         }
-        
     }
 
     public async Task<EventEntity> GetEventById(string id)
@@ -93,7 +92,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
         }
     }
 
-    public async Task<bool> DeleteProject(string id)
+    public async Task<bool> DeleteEvent(string id)
     {
         try {
             if (string.IsNullOrEmpty(id))
@@ -106,6 +105,5 @@ public class EventService(IEventRepository eventRepository) : IEventService
             Console.WriteLine(ex.ToString());
             return false;
         }
-        
     }
 }
