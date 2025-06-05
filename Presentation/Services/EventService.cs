@@ -20,7 +20,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
             EventEntity entity = new()
             {
                 Title = form.Title,
-                EventImagePath = form.EventImagePath ?? null!, 
+                //EventImagePath = form.EventImagePath ?? null!, 
                 Date = form.Date,
                 Description = form.Description ?? null!,
                 Price = form.Price,

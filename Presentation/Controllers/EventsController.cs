@@ -47,11 +47,11 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
         }
         try
         {
-            if (dto!.EventImage != null && dto.EventImage.Length > 0)
-            {
-                var imageFileUri = await _fileHandler.UploadFileAsync(dto.EventImage);
-                dto.EventImagePath = imageFileUri;
-            }
+            //if (dto!.EventImage != null && dto.EventImage.Length > 0)
+            //{
+            //    var imageFileUri = await _fileHandler.UploadFileAsync(dto.EventImage);
+            //    dto.EventImagePath = imageFileUri;
+            //}
 
             var result = await _eventService.CreateEvent(dto);
             return Created();
