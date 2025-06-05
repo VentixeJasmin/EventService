@@ -36,7 +36,7 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
         }
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> CreateEvent(EventDto dto)
     {
         if (!ModelState.IsValid)
