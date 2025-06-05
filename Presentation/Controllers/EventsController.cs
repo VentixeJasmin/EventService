@@ -7,6 +7,7 @@ using Data.Interfaces;
 using Presentation.Models;
 using Data.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers;
 
@@ -17,6 +18,7 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
     private readonly IEventService _eventService = eventService;
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
+    [Authorize]
     [HttpGet("form-data")]
     public async Task<IActionResult> GetEventFormData()
     {
@@ -39,6 +41,7 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
         }
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateEvent(EventDto dto)
     {
