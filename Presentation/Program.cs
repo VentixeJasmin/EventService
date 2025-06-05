@@ -10,7 +10,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IEventRepository, EventRepository>(); 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

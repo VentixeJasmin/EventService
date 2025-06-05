@@ -29,7 +29,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
                 Title = form.Title,
                 Date = form.Date,
                 Description = form.Description ?? null!,
-                //TicketTypes = form.SelectedTicketTypes, 
+                Price = form.Price,
                 CategoryId = form.CategoryId,
                 VenueId = form.VenueId
             };
