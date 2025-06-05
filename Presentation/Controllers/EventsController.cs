@@ -40,6 +40,10 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
     [HttpPost]
     public async Task<IActionResult> CreateEvent(EventDto dto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         try
         {
             var result = await _eventService.CreateEvent(dto);
