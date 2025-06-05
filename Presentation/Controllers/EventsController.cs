@@ -36,7 +36,6 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
         }
     }
 
-    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateEvent(EventDto dto)
     {
