@@ -54,7 +54,7 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
             //}
 
             var result = await _eventService.CreateEvent(dto);
-            return Created();
+            return Created("", result);
         }
         catch (Exception ex)
         {
