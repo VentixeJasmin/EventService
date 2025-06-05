@@ -19,17 +19,12 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     [Authorize]
-    [HttpGet("form-data")]
-    public async Task<IActionResult> GetEventFormData()
+    [HttpGet("categories")]
+    public async Task<IActionResult> GetCategories()
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
-
         try
         {
-            EventDto dto = new()
+            EventFormDataDto dto = new()
             {
                 CategoryOptions = await PopulateCategoriesAsync()
             };

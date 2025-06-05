@@ -1,5 +1,4 @@
-﻿using Data.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -17,7 +16,7 @@ public class EventDto
 
     public IFormFile? EventImage { get; set; } 
     
-    public List<CategoryEntity>? CategoryOptions { get; set; }
+    public decimal Price { get; set; }
 
     public int CategoryId { get; set; }
 
