@@ -7,6 +7,7 @@ using Presentation.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Presentation.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,10 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+var blobConnection = builder.Configuration.GetConnectionString("BlobStorage");
+var blobContainerName = "images";
+builder.Services.AddScoped<IFileHandler>(_ => new AzureFileHandler(blobConnection!, blobContainerName));
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("VentixeDatabaseConnection")));
 

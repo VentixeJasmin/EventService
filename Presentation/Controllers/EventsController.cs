@@ -8,15 +8,17 @@ using Presentation.Models;
 using Data.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Authorization;
+using Presentation.Handlers;
 
 namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class EventsController(IEventService eventService, ICategoryRepository categoryRepository) : ControllerBase
+public class EventsController(IEventService eventService, ICategoryRepository categoryRepository, IFileHandler fileHandler) : ControllerBase
 {
     private readonly IEventService _eventService = eventService;
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
+    private readonly IFileHandler _fileHandler = fileHandler;
 
     [Authorize]
     [HttpGet("categories")]
@@ -30,14 +32,14 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
             };
             return Ok(dto);
         }
-        catch (Exception ex) 
-        { 
+        catch (Exception ex)
+        {
             return BadRequest(ex.Message);
         }
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateEvent(EventDto dto)
+    public async Task<IActionResult> CreateEvent([FromBody] EventDto? dto)
     {
         if (!ModelState.IsValid)
         {
@@ -45,8 +47,14 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
         }
         try
         {
+            if (dto!.EventImage != null && dto.EventImage.Length > 0)
+            {
+                var imageFileUri = await _fileHandler.UploadFileAsync(dto.EventImage);
+                dto.EventImagePath = imageFileUri;
+            }
+
             var result = await _eventService.CreateEvent(dto);
-            return Created(); 
+            return Created();
         }
         catch (Exception ex)
         {
@@ -66,7 +74,7 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
             var orderedEvents = events
                 .Where(e => e.Date >= DateTime.Now)
                 .OrderBy(e => e.Date)
-                .ToList(); 
+                .ToList();
 
             return Ok(orderedEvents);
         }
@@ -95,10 +103,11 @@ public class EventsController(IEventService eventService, ICategoryRepository ca
     public async Task<List<CategoryEntity>> PopulateCategoriesAsync()
     {
         var categories = await _categoryRepository.GetAsync();
-        List<CategoryEntity> options = []; 
+        List<CategoryEntity> options = [];
 
-        foreach (CategoryEntity category in categories) {
-           options.Add(category);
+        foreach (CategoryEntity category in categories)
+        {
+            options.Add(category);
         }
 
         return options;

@@ -17,16 +17,10 @@ public class EventService(IEventRepository eventRepository) : IEventService
             if (form == null)
                 return null!;
 
-            //if (form.EventImage != null && form.EventImage.Length > 0)
-            //{
-            //    var imageFileUri = await _fileHandler.UploadFileAsync(form.EventImage);
-            //    string eventImagePath = imageFileUri;
-
-            //}
-
             EventEntity entity = new()
             {
                 Title = form.Title,
+                EventImagePath = form.EventImagePath ?? null!, 
                 Date = form.Date,
                 Description = form.Description ?? null!,
                 Price = form.Price,
