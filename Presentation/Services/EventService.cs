@@ -29,6 +29,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
             };
 
             var newEvent = await _eventRepository.CreateAsync(entity);
+            await _eventRepository.SaveAsync();
 
             return newEvent; 
         }
@@ -76,8 +77,10 @@ public class EventService(IEventRepository eventRepository) : IEventService
             if (string.IsNullOrEmpty(id))
                 return null!;
 
-            return await _eventRepository.UpdateAsync(e => e.Id == id, updatedEvent); 
+            var existingEvent = await _eventRepository.UpdateAsync(e => e.Id == id, updatedEvent); 
+            await _eventRepository.SaveAsync();
 
+            return existingEvent;
         }
         catch (Exception ex)
         {
